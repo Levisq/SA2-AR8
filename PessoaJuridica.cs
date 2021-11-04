@@ -6,6 +6,8 @@ namespace ER2
         
         public string RazaoSocial { get; set; }
         
-        
+        public override void PagarImposto(float salario){
+            
+        }
     }
 }
