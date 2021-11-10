@@ -4,7 +4,7 @@ namespace ER2
     {
         public string nome { get; set; }
 
-        public endereco endereco { get; set; }
+        public Endereco endereco { get; set; }
 
         public abstract void PagarImposto(float salario);
         

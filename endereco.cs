@@ -1,6 +1,6 @@
 namespace ER2
 {
-    public class endereco
+    public class Endereco
     {
      public string logradouro { get; set; }
      
