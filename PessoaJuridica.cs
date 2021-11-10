@@ -11,7 +11,7 @@ namespace ER2
         }
 
         public bool ValidarCNPJ(string cnpj){
-            if (cnpj.Length == 14 && cnpj.Substring(cnpj.Length - 4) == "0001")
+            if (cnpj.Length == 14 && cnpj.Substring(cnpj.Length - 6, 4) == "0001")
             {
             // o && serve para validar duas ao mesmo tempo
             // ou seja os 2 precisam estar de acordo para ser true
