@@ -41,27 +41,29 @@ namespace ER2
                 switch (opcao)
                 {
                     case ("1"):
+                        PessoaFisica pf = new PessoaFisica();
 
                         PessoaFisica Novapf = new PessoaFisica();
-                        PessoaFisica pf = new PessoaFisica();
+
                         Endereco endPf = new Endereco();
 
-                        endPf.logradouro = "Rua x";
+                        endPf.logradouro = "x";
                         endPf.numero = 100;
                         endPf.complemento = "Apto 14";
                         endPf.enderecoComercial = false;
 
-                        pf.endereco = endPf;
-                        pf.cpf = "123.456.789-10";
-                        pf.nome = "Pessoa Fisica";
-                        pf.DataNascimento = new DateTime(2000, 06, 15);
+                        Novapf.endereco = endPf;
+                        Novapf.cpf = "123.456.789-10";
+                        Novapf.nome = "Pessoa Fisica";
+                        Novapf.rendimento = 6000;
+                        Novapf.DataNascimento = new DateTime(2000, 06, 15);
 
-                        Console.WriteLine($@"Rua: {pf.endereco.logradouro}, Numero: {pf.endereco.numero}");
+                        Console.WriteLine($@"Rua: {Novapf.endereco.logradouro}, Numero: {Novapf.endereco.numero}");
                         //com o @ é possível esquematizar onde eu quero o texto
 
-                        bool idadeValida = pf.ValidarDataNascimento(pf.DataNascimento);
+                        bool idadeValida = pf.ValidarDataNascimento(Novapf.DataNascimento);
 
-                        if (pf.ValidarDataNascimento(pf.DataNascimento) == true)
+                        if (idadeValida == true)
                         {
                             Console.WriteLine($"Cadastro Aprovado");
                         }
@@ -69,6 +71,8 @@ namespace ER2
                         {
                             Console.WriteLine($"Cadastro reprovado, não é permitido o cadastro para menores de 18 anos");
                         }
+
+                        Console.WriteLine(pf.PagarImposto(Novapf.rendimento));  
 
                         break;
 
@@ -89,7 +93,8 @@ namespace ER2
                         novaPj.endereco = endPj;
                         novaPj.cnpj = "34567891000112";
                         novaPj.RazaoSocial = "Pessoa Juridica";
-
+                        novaPj.rendimento = 10000;
+                        
                         if (pj.ValidarCNPJ(novaPj.cnpj))
                         {
                             Console.WriteLine("CNPJ Válido");
@@ -97,6 +102,9 @@ namespace ER2
                         {
                              Console.WriteLine($"CNPJ Inválido");
                         }
+
+                        Console.WriteLine(pj.PagarImposto(novaPj.rendimento).ToString("N2"));
+                        
 
                         break;
 

@@ -6,8 +6,21 @@ namespace ER2
         
         public string RazaoSocial { get; set; }
         
-        public override void PagarImposto(float salario){
+        public override double PagarImposto(float rendimento){
             
+                    if (rendimento <= 5000)
+            {
+                return (rendimento/100) * 6;
+
+            }else if (rendimento > 5000 && rendimento <= 10000)
+            {
+                return rendimento * .08;
+        
+            }else
+            {
+                return (rendimento/100) * 10;
+            }
+
         }
 
         public bool ValidarCNPJ(string cnpj){

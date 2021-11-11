@@ -8,7 +8,21 @@ namespace ER2
 
         public DateTime DataNascimento { get; set; }
         
-        public override void PagarImposto(float salario){
+        public override double PagarImposto(float rendimento){
+
+            if (rendimento <= 1500)
+            {
+                return 0;
+
+            }else if (rendimento > 1500 && rendimento <= 5000)
+            {
+                return rendimento * .03;
+        
+            }else
+            {
+                return (rendimento/100) * 5;
+            }
+
 
         }
         
@@ -16,7 +30,7 @@ namespace ER2
             
             DateTime dataAtual = DateTime.Today;
 
-            double anos = (dataAtual - dataNasc).TotalDays / 360;
+            double anos = (dataAtual - dataNasc).TotalDays / 365;
             
             if (anos >= 18 ){
 

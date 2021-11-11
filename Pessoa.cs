@@ -6,7 +6,9 @@ namespace ER2
 
         public Endereco endereco { get; set; }
 
-        public abstract void PagarImposto(float salario);
+        public float rendimento { get; set; }
+
+        public abstract double PagarImposto(float salario);
         
     }
 }         
