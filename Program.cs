@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace ER2
@@ -7,6 +8,10 @@ namespace ER2
     {
         static void Main(string[] args)
         {
+            List<PessoaFisica> ListaPf = new List<PessoaFisica>();
+            List<PessoaJuridica> ListaPj = new List<PessoaJuridica>();
+
+
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.BackgroundColor = ConsoleColor.Black;
@@ -28,8 +33,15 @@ namespace ER2
 ====================================
 |   Escolha uma das opção abaixo   |
 ------------------------------------
-|            1 - Pessoa Fisica     |
-|            2 - Pessoa Juridica   |
+|           Pessoa Fisica          |
+|   1 - Cadastrar Pessoa Fisica    |
+|   2 - Listar Pessoa Fisica       |
+|   3 - Remover Pessoa Fisica      |
+|                                  |
+|          Pessoa Juridica         |
+|   4 - Cadastrar Pessoa Juridica  |
+|   5 - Listar Pessoa Juridica     |
+|   6 - Remover Pessoa Juridica    |
 |                                  |
 |            0 - Sair              |
 ====================================
@@ -40,23 +52,47 @@ namespace ER2
 
                 switch (opcao)
                 {
-                    case ("1"):
+                    case "1":
                         PessoaFisica pf = new PessoaFisica();
 
                         PessoaFisica Novapf = new PessoaFisica();
 
                         Endereco endPf = new Endereco();
 
-                        endPf.logradouro = "x";
-                        endPf.numero = 100;
-                        endPf.complemento = "Apto 14";
-                        endPf.enderecoComercial = false;
+                        Console.WriteLine($"Digite seu logradouro");
+                        endPf.logradouro = Console.ReadLine();
+
+                        Console.WriteLine($"Digite o numero");
+                        endPf.numero = int.Parse(Console.ReadLine());
+                    
+                        Console.WriteLine($"Digite seu complemento(aperte ENTER para vazio)");
+                        endPf.complemento = Console.ReadLine();
+                        
+                        Console.WriteLine($"Seu endereço é comercial? S/N");
+                        string endComercial = Console.ReadLine().ToUpper();
+                        
+                        if (endComercial == "S")
+                        {
+                            endPf.enderecoComercial = true;
+                        }else
+                        {
+                            endPf.enderecoComercial = false;
+                        }
 
                         Novapf.endereco = endPf;
-                        Novapf.cpf = "123.456.789-10";
-                        Novapf.nome = "Pessoa Fisica";
-                        Novapf.rendimento = 6000;
-                        Novapf.DataNascimento = new DateTime(2000, 06, 15);
+
+                        Console.WriteLine($"Digite seu CPF (Somente numeros)");
+                        Novapf.cpf = Console.ReadLine();
+                        
+                        Console.WriteLine($"Digite seu nome");
+                        Novapf.nome = Console.ReadLine();
+                        
+                        Console.WriteLine($"Digite seu rendimento mensal (Somente numeros)");
+                        Novapf.rendimento = float.Parse(Console.ReadLine());
+                        
+                        Console.WriteLine($"digite sua data de nascimento Ex: AAAA-MM--DD");
+                        Novapf.DataNascimento = DateTime.Parse(Console.ReadLine());
+                        
 
                         Console.WriteLine($@"Rua: {Novapf.endereco.logradouro}, Numero: {Novapf.endereco.numero}");
                         //com o @ é possível esquematizar onde eu quero o texto
@@ -66,18 +102,42 @@ namespace ER2
                         if (idadeValida == true)
                         {
                             Console.WriteLine($"Cadastro Aprovado");
+                            ListaPf.Add(Novapf);
+                            Console.WriteLine(pf.PagarImposto(Novapf.rendimento));  
                         }
                         else
                         {
                             Console.WriteLine($"Cadastro reprovado, não é permitido o cadastro para menores de 18 anos");
                         }
 
-                        Console.WriteLine(pf.PagarImposto(Novapf.rendimento));  
 
                         break;
 
+                    case "2":
+                            foreach (var cadaItem in ListaPf)
+                            {
+                                Console.WriteLine($"{cadaItem.nome}, {cadaItem.cpf}, {cadaItem.endereco.logradouro}");
+                            }
+                        break;
 
-                    case ("2"):
+                    case "3":
+                            Console.WriteLine($"Digite o CPF que deseja Remover");
+                            string cpfProcurado = Console.ReadLine();
+
+                           PessoaFisica pessoaEncontrada = ListaPf.Find(cadaItem => cadaItem.cpf == cpfProcurado);
+                            
+                            if (pessoaEncontrada != null)
+                            {
+                                ListaPf.Remove(pessoaEncontrada);
+                                Console.WriteLine($"Cadastro removido");
+                            }else
+                            {
+                                Console.WriteLine($"Cpf não encontrado");
+                            }
+
+                        break;
+
+                    case "4":
 
                         PessoaJuridica pj = new PessoaJuridica();
 
@@ -85,31 +145,83 @@ namespace ER2
 
                         Endereco endPj = new Endereco();
 
-                        endPj.logradouro = "Rua x";
-                        endPj.numero = 100;
-                        endPj.complemento = "Apto 14";
-                        endPj.enderecoComercial = true;
+                        Console.WriteLine($"Digite seu logradouro");
+                        endPj.logradouro = Console.ReadLine();
+
+                        Console.WriteLine($"Digite o numero");
+                        endPj.numero = int.Parse(Console.ReadLine());
+                    
+                        Console.WriteLine($"Digite seu complemento(aperte ENTER para vazio)");
+                        endPj.complemento = Console.ReadLine();
+                        
+                        Console.WriteLine($"Seu endereço é comercial? S/N");
+                        string endComercialPj = Console.ReadLine().ToUpper();
+
+                        if (endComercialPj == "S")
+                        {
+                            endPj.enderecoComercial = true;
+                        }else
+                        {
+                            endPj.enderecoComercial = false;
+                        }
 
                         novaPj.endereco = endPj;
-                        novaPj.cnpj = "34567891000112";
-                        novaPj.RazaoSocial = "Pessoa Juridica";
-                        novaPj.rendimento = 10000;
+
+                        Console.WriteLine($"Digite seu CNPJ (Somente numeros)");
+                        novaPj.cnpj = Console.ReadLine();
                         
+                        Console.WriteLine($"Digite sua razao social");
+                        novaPj.RazaoSocial = Console.ReadLine();
+                        
+                        Console.WriteLine($"Digite seu rendimento mensal (Somente numeros)");
+                        novaPj.rendimento = float.Parse(Console.ReadLine());
+            
                         if (pj.ValidarCNPJ(novaPj.cnpj))
                         {
                             Console.WriteLine("CNPJ Válido");
+                            Console.WriteLine($"Cadastro Aprovado");
+                            ListaPj.Add(novaPj);
+                            Console.WriteLine(pj.PagarImposto(novaPj.rendimento).ToString("N2"));
+                            Console.WriteLine($@"Rua: {novaPj.endereco.logradouro}, Numero: {novaPj.endereco.numero}");
+                            
                         }else
                         {
                              Console.WriteLine($"CNPJ Inválido");
                         }
 
-                        Console.WriteLine(pj.PagarImposto(novaPj.rendimento).ToString("N2"));
+
+
                         
+                        break;
+                    
+                    case "5":
+                            foreach (var cadaItem in ListaPj)
+                            {
+                                Console.WriteLine($"{cadaItem.RazaoSocial}, {cadaItem.cnpj}, {cadaItem.endereco.logradouro}");
+                            }
+
+                        break;
+
+                    case "6":
+                            Console.WriteLine($"Digite o CNPJ que deseja Remover");
+                            string cnpjProcurado = Console.ReadLine();
+
+                           PessoaJuridica EmpresaEncontrada = ListaPj.Find(cadaItem => cadaItem.cnpj == cnpjProcurado);
+                            
+                            if (EmpresaEncontrada != null)
+                            {
+                                ListaPj.Remove(EmpresaEncontrada);
+                                Console.WriteLine($"Cadastro removido");
+                            }else
+                            {
+                                Console.WriteLine($"Cpf não encontrado");
+                            }
 
                         break;
 
 
-                    case ("0"):
+
+                    case "0":
                         Console.Clear();
 
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
