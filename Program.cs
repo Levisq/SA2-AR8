@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
-
 namespace ER2
 {
     class Program
@@ -20,7 +20,6 @@ namespace ER2
 |  Bem vindo ao sistema de cadastro |
 =====================================
 ");
-           Console.Clear();
 
             BarraCarregamento("Inicializando");
 
@@ -110,6 +109,26 @@ namespace ER2
                             Console.WriteLine($"Cadastro reprovado, não é permitido o cadastro para menores de 18 anos");
                         }
 
+                        // StreamWriter sw = new StreamWriter($"{Novapf.nome}.txt");
+                        // sw.Write(Novapf.nome);
+                        // sw.Close();
+
+                        using (StreamWriter sw = new StreamWriter($"{Novapf.nome}.txt"))
+                        {
+                            sw.Write(Novapf.nome);
+                        }
+
+
+                        using (StreamReader sr = new StreamReader($"{Novapf.nome}.txt"))
+                        {
+                            string linha;
+                             while ((linha = sr.ReadLine()) != null)
+                             {
+                                 
+                                 Console.WriteLine($"{linha}");
+                                 
+                             }
+                        }
 
                         break;
 
@@ -172,26 +191,36 @@ namespace ER2
                         
                         Console.WriteLine($"Digite sua razao social");
                         novaPj.RazaoSocial = Console.ReadLine();
+
+                        Console.WriteLine($"Digite o nome de sua empresa");
+                        novaPj.Nome = Console.ReadLine();
                         
                         Console.WriteLine($"Digite seu rendimento mensal (Somente numeros)");
                         novaPj.rendimento = float.Parse(Console.ReadLine());
             
-                        if (pj.ValidarCNPJ(novaPj.cnpj))
-                        {
-                            Console.WriteLine("CNPJ Válido");
-                            Console.WriteLine($"Cadastro Aprovado");
-                            ListaPj.Add(novaPj);
-                            Console.WriteLine(pj.PagarImposto(novaPj.rendimento).ToString("N2"));
-                            Console.WriteLine($@"Rua: {novaPj.endereco.logradouro}, Numero: {novaPj.endereco.numero}");
+                        // if (pj.ValidarCNPJ(novaPj.cnpj))
+                        // {
+                        //     Console.WriteLine("CNPJ Válido");
+                        //     Console.WriteLine($"Cadastro Aprovado");
+                        //     ListaPj.Add(novaPj);
+                        //     Console.WriteLine(pj.PagarImposto(novaPj.rendimento).ToString("N2"));
+                        //     Console.WriteLine($@"Rua: {novaPj.endereco.logradouro}, Numero: {novaPj.endereco.numero}");
                             
-                        }else
-                        {
-                             Console.WriteLine($"CNPJ Inválido");
-                        }
+                        // }else
+                        // {
+                        //      Console.WriteLine($"CNPJ Inválido");
+                        // }
+
+                            // pj.VerificarArquivo(pj.caminho);
+                            // pj.Inserir(novaPj);
+
+                            foreach (var item in pj.Ler())
+                            {
+                                Console.WriteLine($"Nome: {item.nome} - Razão Social:{item.RazaoSocial} - CNPJ: {item.cnpj}");
+                            }
 
 
-
-                        
+          
                         break;
                     
                     case "5":
@@ -199,6 +228,7 @@ namespace ER2
                             {
                                 Console.WriteLine($"{cadaItem.RazaoSocial}, {cadaItem.cnpj}, {cadaItem.endereco.logradouro}");
                             }
+                            
 
                         break;
 

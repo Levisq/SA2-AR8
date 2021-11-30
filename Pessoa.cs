@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace ER2
 {
     public abstract class Pessoa
@@ -10,5 +12,20 @@ namespace ER2
 
         public abstract double PagarImposto(float salario);
         
+
+        public void VerificarArquivo(string caminho){
+         
+         string pasta = caminho.Split("/")[0];
+
+         if (Directory.Exists(pasta))
+         {
+             Directory.CreateDirectory(pasta);
+         }
+        
+         if (File.Exists(caminho))
+         {
+             File.Create(caminho);
+         }  
+       }
     }
 }         
