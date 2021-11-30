@@ -1,7 +1,7 @@
-- Trabalho do curso de desenvolver back-end,
+# Trabalho curso de desenvolver back-end <h1>
 
--  Titulo: Sistema de cadastro de pessoas fisicas e juridicas.
--  Descrição:O sistema busca cadastrar e listar dados de pessoas fisicas e juridicas.
+# Sistema de cadastro de pessoas fisicas e juridicas <h2>
+-  Descrição: O sistema busca cadastrar e listar dados de pessoas fisicas e juridicas.
 -  Features: Sistema de cadastro, listas e armazenamento.
 -  Tecnologias utilizadas: Vscode, Github
 -  Organização do projeto: Trello
